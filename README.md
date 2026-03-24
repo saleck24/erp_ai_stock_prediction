@@ -1,66 +1,70 @@
-# ERP IA : Prédiction de Demande et Stock (Module ML)
+# 🛒 ERP Intelligent : Prédiction de Demande et Optimisation des Stocks
+**Projet Master 1 - Systèmes d'Information (IA et Business Intelligence)**
 
-Ce projet implémente un module ERP Intelligent capable de prédire la demande future des produits, d’estimer le risque de rupture de stock, et de recommander les quantités optimales de réapprovisionnement.
+Ce projet implémente un module ERP Intelligent conçu pour automatiser les décisions de réapprovisionnement. En s'appuyant sur des données de ventes réelles, l'IA prédit la demande future, estime les risques de rupture et recommande les quantités optimales de commande.
 
-## Démarrage Rapide
+---
 
-### 1. Livrable Semaine 1 (Exploration des Données - EDA)
+## 📊 Dataset : Corporación Favorita (Kaggle)
+Le projet utilise désormais un jeu de données réel provenant de la chaîne équatorienne **Corporación Favorita** (données de 2013 à 2017).
+- **Volume :** Plus de 125 millions d'enregistrements (échantillonnés pour ce prototype).
+- **Richesse :** 54 magasins, des dizaines de villes et des milliers d'articles enrichis de métadonnées (`stores.csv`, `items.csv`, `holidays_events.csv`).
+- **Lien :** [Favorita Grocery Sales Forecasting](https://www.kaggle.com/competitions/favorita-grocery-sales-forecasting)
 
-Le livrable de la Semaine 1 se trouve dans le fichier `notebooks/01_EDA.ipynb`.
+---
 
-**Que contient ce Notebook ?**
-- L'importation du dataset `train.csv`.
-- Le nettoyage des données et vérification des valeurs manquantes.
-- Une analyse des tendances temporelles et de la saisonnalité.
-- Un affichage des volumes de vente moyens par produit (les top-sellers et low-sellers).
-- Une interprétation scientifique finale.
+## 🚀 Fonctionnalités Clés
+- **Modélisation Avancée (XGBoost) :** Un modèle Gradient Boosting capable de capter les relations non-linéaires complexes.
+- **Analyse de Saisonnalité :** Détection automatique des cycles hebdomadaires (pics le week-end).
+- **Facteur Événementiel :** Intégration des **jours fériés** pour prévenir les ruptures lors des pics de consommation.
+- **Interfaces Interactives :**
+  - **Dashboard (Streamlit) :** Analyse historique et exploration des tendances.
+  - **Predictor (Gradio) :** Outil opérationnel de prédiction en temps réel avec calendrier intégré.
 
-### 2. Livrables Phase 2 & 3 (Modélisation & Prototypage)
+---
 
-Le modèle d'Intelligence Artificielle (XGBoost) a été entraîné et sauvegardé. Deux interfaces graphiques ont été développées pour démontrer la précision et l'utilité du modèle ERP.
+## 🛠️ Installation et Utilisation
 
-**Pour lancer le Dashboard Analytique (Streamlit) :**
-Ce tableau de bord permet de visualiser les historiques de ventes filtrés par Magasin et par Produit.
+### 1. Prérequis
+- Python 3.8+
+- Un environnement virtuel recommandé :
+  ```bash
+  python -m venv venv
+  venv\Scripts\activate
+  ```
+
+### 2. Installation des dépendances
 ```bash
-# Dans un terminal à la racine du projet
-venv\Scripts\python -m pip install streamlit gradio plotly
-venv\Scripts\streamlit run src/dashboard.py
+pip install -r requirements.txt
 ```
 
-**Pour lancer le Simulateur de Prévision (Gradio) :**
-Cette interface permet d'interroger le modèle prédictif pour générer des recommandations de réapprovisionnement.
-```bash
-# Dans un terminal à la racine du projet
-venv\Scripts\python src/predictor.py
-```
-*(Cliquez ensuite sur le lien HTTP Local affiché dans la console)*
+### 3. Lancement des modules
+- **Analyse Exploratoire (EDA) :** Consulter `notebooks/01_EDA.ipynb`.
+- **Entraînement :** `python src/train_model.py` (pour ré-entraîner le modèle sur les dernières données).
+- **Dashboard :** `streamlit run src/dashboard.py`
+- **Predictor :** `python src/predictor.py`
+
+---
 
 ## 🏢 Architecture du Projet
-
-Voici l'organisation du dépôt pour comprendre le rôle de chaque dossier et fichier :
-
 ```text
 erp_ai_stock_prediction/
-├── data/                   # Données brutes (train.csv, test.csv)
-├── models/                 # Modèles IA entraînés et sauvegardés (.pkl)
-├── notebooks/              # Travaux de recherche (EDA, exploration)
-├── src/                    # Code source de l'application
-│   ├── dashboard.py        # Interface de visualisation (Streamlit)
-│   ├── predictor.py        # Interface de prédiction (Gradio)
-│   └── train_model.py     # Script d'entraînement de l'IA
+├── data/                   # Fichiers sources (train.csv, metadata)
+├── models/                 # Modèles IA sauvegardés (.pkl)
+├── notebooks/              # Analyse exploratoire (EDA - Semaine 1)
+├── src/                    # Code source (Dashboard, Predictor, Train)
 ├── IA_Justifications.md    # Documentation scientifique et choix techniques
-├── requirements.txt        # Liste des dépendances Python
-└── README.md               # Documentation générale (ce fichier)
+├── requirements.txt        # Liste des dépendances
+└── README.md               # Ce fichier
 ```
 
-### 📂 Rôle des Dossiers
-- **`data/`** : Contient les données historiques de ventes. C'est le carburant de l'IA.
-- **`models/`** : Stocke le "cerveau" de l'IA (`xgboost_stock_predictor.pkl`). Ce fichier est généré par le script d'entraînement.
-- **`notebooks/`** : Contient les analyses préliminaires (Semaine 1) pour valider la qualité des données avant de coder.
-- **`src/`** : Regroupe toute la logique métier et les interfaces utilisateurs.
-
 ### 📄 Fichiers Clés
-- **`train_model.py`** : C'est ici que la magie opère. Il lit les données, entraîne deux modèles (Baseline et XGBoost), compare leurs performances et sauvegarde le meilleur.
-- **`dashboard.py`** : Fournit une vision globale et analytique des stocks pour les gestionnaires.
-- **`predictor.py`** : L'outil opérationnel qui utilise l'IA pour conseiller le réapprovisionnement au jour le jour.
-- **`IA_Justifications.md`** : Explique le **"Pourquoi"** des choix techniques (XGBoost, MAE, RMSE) pour justifier la démarche scientifique.
+- **`src/train_model.py`** : Moteur d'entraînement (MAE: 7.60).
+- **`src/dashboard.py`** : Visualisation analytique pour les décideurs.
+- **`src/predictor.py`** : Outil terrain pour les magasiniers (Génère l'alerte rupture).
+- **`IA_Justifications.md`** : Justification académique des métriques (MAE, RMSE, MAPE).
+
+---
+
+## 👨‍🎓 Contexte Académique
+Ce travail a été réalisé dans le cadre d'un Master 1 SI. Il démontre la capacité d'une Intelligence Artificielle à s'intégrer dans un processus métier classique (ERP) pour apporter une valeur ajoutée quantifiable (réduction des invendus et des ruptures).
