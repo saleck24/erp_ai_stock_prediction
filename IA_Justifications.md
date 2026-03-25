@@ -45,7 +45,7 @@ Lors de l'entraînement sur 2 millions de lignes (échantillon final de 2017) du
 ## 5. Démonstration : Entraînement et Visualisation
 Pour reproduire ces résultats et tester le système, suivez ces étapes dans un terminal à la racine du projet :
 
-### A. Entraîner le Modèle (Optionnel si déjà fait)
+### A. Entraîner le Modèle
 Si vous souhaitez ré-entraîner l'IA sur les données historiques :
    ```bash
    venv\Scripts\python src/train_model.py
