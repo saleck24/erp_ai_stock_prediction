@@ -1,12 +1,12 @@
 # 🛒 ERP Intelligent : Prédiction de Demande et Optimisation des Stocks
-**Projet Master 1 - Systèmes d'Information (IA et Business Intelligence)**
+**Systèmes d'Information (IA et Business Intelligence)**
 
 Ce projet implémente un module ERP Intelligent conçu pour automatiser les décisions de réapprovisionnement. En s'appuyant sur des données de ventes réelles, l'IA prédit la demande future, estime les risques de rupture et recommande les quantités optimales de commande.
 
 ---
 
 ## 📊 Dataset : Corporación Favorita (Kaggle)
-Le projet utilise désormais un jeu de données réel provenant de la chaîne équatorienne **Corporación Favorita** (données de 2013 à 2017).
+Le projet utilise un jeu de données réel provenant de la chaîne équatorienne **Corporación Favorita** (données de 2013 à 2017).
 - **Volume :** Plus de 125 millions d'enregistrements (échantillonnés pour ce prototype).
 - **Richesse :** 54 magasins, des dizaines de villes et des milliers d'articles enrichis de métadonnées (`stores.csv`, `items.csv`, `holidays_events.csv`).
 - **Lien :** [Favorita Grocery Sales Forecasting](https://www.kaggle.com/competitions/favorita-grocery-sales-forecasting)
